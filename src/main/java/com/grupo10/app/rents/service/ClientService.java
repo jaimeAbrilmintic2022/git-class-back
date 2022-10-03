@@ -22,8 +22,8 @@ public class ClientService {
     @Autowired
     IClientRepository repository;
 
-    @Autowired
-    IMessageRepository messageRepository;
+    //@Autowired
+    //IMessageRepository messageRepository;
 
     public Iterable<Client> get() {
         Iterable<Client> response = repository.findAll();
