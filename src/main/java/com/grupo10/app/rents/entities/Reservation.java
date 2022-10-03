@@ -4,13 +4,17 @@
  */
 package com.grupo10.app.rents.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.sql.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,11 +42,16 @@ public class Reservation implements Serializable {
     private Date devolutionDate;    
     @Column
     private String status;
-    @Column
-    private Quadbike quadbike;  
     
-    @Column
-    private Client client;  
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("reservation")
+    @JoinColumn(name="quadbike_id")
+    private Quadbike quadbike;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("reservation")
+    @JoinColumn(name="client_id")
+    private Client client;
     
     @Column
     private String score;  

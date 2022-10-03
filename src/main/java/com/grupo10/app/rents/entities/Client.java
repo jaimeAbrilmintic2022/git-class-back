@@ -36,11 +36,11 @@ public class Client implements Serializable {
     @Column(name="id")    
     private Integer idClient;
     @Column
-    private String name;
-    @Column
     private String email;
     @Column
     private String password;
+    @Column
+    private String name;
     @Column
     private Integer age;
    
