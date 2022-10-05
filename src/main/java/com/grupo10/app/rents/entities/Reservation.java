@@ -41,9 +41,22 @@ public class Reservation implements Serializable {
     @Column
     private Date devolutionDate;    
     @Column
-    private String status;
+    private String status ="created";
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name="quadbike")
+    @JsonIgnoreProperties({"reservations"})
+    private Quadbike quadbike;
+    
+    @ManyToOne
+    @JoinColumn(name="clientId")
+    @JsonIgnoreProperties({"messages","reservations"})
+    private Client client;
+    
+   
+        
+     
+    /*@ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties("reservation")
     @JoinColumn(name="quadbike_id")
     private Quadbike quadbike;
@@ -51,10 +64,11 @@ public class Reservation implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnoreProperties("reservation")
     @JoinColumn(name="client_id")
-    private Client client;
+    private Client client;*/
     
     @Column
-    private String score;  
+    private String score;
+      
     
     
 }

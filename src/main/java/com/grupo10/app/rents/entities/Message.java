@@ -38,17 +38,19 @@ public class Message implements Serializable {
     @Column
     private String messageText;
    
-    
-     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("messages")
-    @JoinColumn(name="quadbike_id")
+    @ManyToOne
+    @JoinColumn(name="quadbike")
+    @JsonIgnoreProperties({"messages","reservations"})
     private Quadbike quadbike;
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("messages")
-    @JoinColumn(name="client_id")
+    @ManyToOne
+    @JoinColumn(name="clientId")
+    @JsonIgnoreProperties({"messages","reservations"})
     private Client client;
+    
+    
+     
+    
     
     
     

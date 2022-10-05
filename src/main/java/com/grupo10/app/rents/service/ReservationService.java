@@ -52,7 +52,7 @@ public class ReservationService {
             repository.save(request);
             return "created....";
         } else {
-            return "falta el nombre";
+            return "falta fecha";
         }
 
     }
