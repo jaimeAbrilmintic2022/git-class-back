@@ -37,9 +37,9 @@ public class Reservation implements Serializable {
     @Column(name="id")    
     private Integer idReservation;
     @Column
-    private Date startDate;
+    private java.sql.Timestamp startDate;
     @Column
-    private Date devolutionDate;    
+    private java.sql.Timestamp devolutionDate;    
     @Column
     private String status ="created";
     

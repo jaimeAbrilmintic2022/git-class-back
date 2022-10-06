@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.grupo10.app.rents.service.QuadbikeService;
 import java.util.Optional;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  *
@@ -40,8 +42,10 @@ public class QuadbikeController {
     }
 
     @PostMapping("/save")
-    public String create(@RequestBody Quadbike request) {
-        return service.create(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    
+    public void create(@RequestBody Quadbike request) {
+        service.create(request);
     }
     
     @PutMapping("/update")

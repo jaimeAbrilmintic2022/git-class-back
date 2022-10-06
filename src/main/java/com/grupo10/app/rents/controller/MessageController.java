@@ -10,10 +10,12 @@ import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.service.MessageService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,9 +35,11 @@ public class MessageController {
     }
     
     @PostMapping("/save")
-    public String create(@RequestBody Message request){
+    @ResponseStatus(HttpStatus.CREATED)
+    
+    public void create(@RequestBody Message request){
         
-        return service.create(request);
+        service.create(request);
     }
 
 

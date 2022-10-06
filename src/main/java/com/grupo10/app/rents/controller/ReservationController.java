@@ -8,10 +8,12 @@ import com.grupo10.app.rents.interfaces.IReservationRepository;
 import com.grupo10.app.rents.entities.Reservation;
 import com.grupo10.app.rents.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -32,8 +34,9 @@ public class ReservationController {
   }
 
   @PostMapping("/save")
-  public String create(@RequestBody Reservation request) {
-    return service.create(request);
+  @ResponseStatus(HttpStatus.CREATED)
+  public void create(@RequestBody Reservation request) {
+  service.create(request);
     
   }
 }
