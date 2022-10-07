@@ -56,6 +56,7 @@ public class CategoryController {
     }
     
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody Category request){
         
         repository.save(request);
