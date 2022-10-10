@@ -8,6 +8,7 @@ import com.grupo10.app.rents.entities.Client;
 
 import com.grupo10.app.rents.interfaces.IClientRepository;
 import com.grupo10.app.rents.interfaces.IMessageRepository;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,4 +41,40 @@ public class ClientService {
         }
 
     }
+    
+    public Client update(Client client){
+        if(client.getIdClient()!=null){
+            Optional<Client> e= repository.findById(client.getIdClient());
+            if(!e.isEmpty()){
+                if(client.getName()!=null){
+                    e.get().setName(client.getName());
+                }
+                if(client.getEmail()!=null){
+                    e.get().setEmail(client.getEmail());
+                }
+                if(client.getPassword()!=null){
+                    e.get().setPassword(client.getPassword());
+                }
+                if(client.getAge()!=null){
+                    e.get().setAge(client.getAge());
+                }
+                repository.save(e.get());
+                return e.get();
+            }else{
+                return client;
+            }
+        }else{
+            return client;
+        }
+    }
+    
+    
+    public Boolean delete(Integer id){
+        repository.deleteById(id);
+        Boolean delete = true;
+        return delete;
+    }   
+    
+    
+ 
 }

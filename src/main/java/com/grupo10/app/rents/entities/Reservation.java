@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +54,12 @@ public class Reservation implements Serializable {
     @JsonIgnoreProperties({"messages","reservations"})
     private Client client;
     
+    @OneToOne(cascade= {CascadeType.REMOVE},mappedBy="reservation")
+    @JsonIgnoreProperties("reservation")
+    private Score score;
+    
+    
+    
    
         
      
@@ -66,8 +73,7 @@ public class Reservation implements Serializable {
     @JoinColumn(name="client_id")
     private Client client;*/
     
-    @Column
-    private String score;
+   
       
     
     

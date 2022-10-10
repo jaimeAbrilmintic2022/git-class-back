@@ -56,4 +56,44 @@ public class ReservationService {
         }
 
     }
+    
+    
+    public Reservation update(Reservation reservation){
+        if(reservation.getIdReservation()!=null){
+            Optional<Reservation> e= repository.findById(reservation.getIdReservation());
+            if(!e.isEmpty()){
+                if(reservation.getStartDate()!=null){
+                    e.get().setStartDate(reservation.getStartDate());
+                }
+                if(reservation.getDevolutionDate()!=null){
+                    e.get().setDevolutionDate(reservation.getDevolutionDate());
+                }
+                if(reservation.getStatus()!=null){
+                    e.get().setStatus(reservation.getStatus());
+                }
+                if(reservation.getQuadbike()!=null){
+                    e.get().setQuadbike(reservation.getQuadbike());
+                }
+                if(reservation.getClient()!=null){
+                    e.get().setClient(reservation.getClient());
+                }
+                repository.save(e.get());
+                return e.get();
+            }else{
+                return reservation;
+            }
+        }else{
+            return reservation;
+        }
+        
+    }
+    
+     public Boolean delete(Integer id){
+        repository.deleteById(id);
+        Boolean delete = true;
+        return delete;
+    }
+    
+    
+    
 }

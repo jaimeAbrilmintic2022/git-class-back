@@ -13,19 +13,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.grupo10.app.rents.service.QuadbikeService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- *
- * @author Andres
- */
+
 @RestController
 @RequestMapping("/api/Quadbike")
+@CrossOrigin(origins = "*")
+/*@CrossOrigin(origins = "http://localhost:8080")*/
 public class QuadbikeController {
 
     @Autowired
@@ -49,13 +50,20 @@ public class QuadbikeController {
     }
     
     @PutMapping("/update")
-    public Quadbike update(@RequestBody Quadbike request) {
-        return service.update(request);
+    @ResponseStatus(HttpStatus.CREATED)
+    public void update(@RequestBody Quadbike request) {
+        service.update(request);
     }
     
     @DeleteMapping("/{id}")
-    public Boolean delete(@PathVariable("id") Integer id) {
-        return service.delete(id);
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") Integer id) {
+        service.delete(id);
+    }
+    
+    @GetMapping("/reports")
+    public List<Object[]> getReport() {
+        return service.getReport();
     }
 
 }

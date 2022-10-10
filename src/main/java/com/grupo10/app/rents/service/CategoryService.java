@@ -16,22 +16,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryService {
     @Autowired
-    IQuadbikeRepository repository;
-    @Autowired
-    ICategoryRepository categoryRepository;
+    ICategoryRepository repository;
     
-    public Iterable<Quadbike> get(){
-
-        Iterable<Quadbike> response = repository.findAll();
-
+    public Iterable<Category> get(){
+        Iterable<Category> response = repository.findAll();
         return response;
     }
 
-    public String create(Quadbike request){
-        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
-        if(!cat.isEmpty()){
-            request.setCategory(cat.get());
-        }
+    public String create(Category request){
+       
         if(request.getName()!=null){
             repository.save(request);
             return "Created ...";
@@ -44,57 +37,32 @@ public class CategoryService {
        return "Created ...";*/
         
     }
+    
+    
+    public Category update(Category category){
+        if(category.getId()!=null){
+            Optional<Category> e= repository.findById(category.getId());
+            if(!e.isEmpty()){
+                if(category.getName()!=null){
+                    e.get().setName(category.getName());
+                }
+                if(category.getDescription()!=null){
+                    e.get().setDescription(category.getDescription());
+                }
+                repository.save(e.get());
+                return e.get();
+            }else{
+                return category;
+            }
+        }else{
+            return category;
+        }
+    }
+
+    public Boolean delete(Integer id){
+        repository.deleteById(id);
+        Boolean delete = true;
+        return delete;
+    }
 
 }
-
-
-
-
-/*@Service
-public class CategoryService {
-
-    @Autowired
-    IQuadbikeRepository repository;
-
-    @Autowired
-    ICategoryRepository categoryRepository; 
-
-    public Iterable<Category> get() {
-        Iterable<Category> response = categoryRepository.findAll();
-        return response;
-    }
-    
-    
-    public String create(Category request) {
-
-        if (request.getName() != null) {
-            categoryRepository.save(request);
-            return "created....";
-        } else {
-            return "falta el nombre";
-        }
-
-    }
-}*/
-    
-    
-    
-    
-    
-    
-    
-    /*public String create(Quadbike request) {
-
-        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
-        if (!cat.isEmpty()) {
-            request.setCategory(cat.get());
-        }
-        if (request.getName() != null) {
-            categoryRepository.save(request);
-            return "created....";
-        } else {
-            return "falta el nombre";
-        }
-
-    }
-}*/
